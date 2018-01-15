@@ -14,24 +14,24 @@
 ### Example Code
 
 ```java
-	@RequestMapping(value = "/export", method = RequestMethod.GET)
-	public void export(HttpServletResponse response) {
-		List<Person> persons = Arrays.asList(
-				Person.builder().firstName(UUID.randomUUID().toString()).lastName(UUID.randomUUID().toString()).build(),
-				Person.builder().firstName(UUID.randomUUID().toString()).lastName(UUID.randomUUID().toString()).build(),
-				Person.builder().firstName(UUID.randomUUID().toString()).lastName(UUID.randomUUID().toString()).build(),
-				Person.builder().firstName(UUID.randomUUID().toString()).lastName(UUID.randomUUID().toString()).build()
-		);
+@RequestMapping(value = "/export", method = RequestMethod.GET)
+public void export(HttpServletResponse response) {
+    List<Person> persons = Arrays.asList(
+            Person.builder().firstName(UUID.randomUUID().toString()).lastName(UUID.randomUUID().toString()).build(),
+            Person.builder().firstName(UUID.randomUUID().toString()).lastName(UUID.randomUUID().toString()).build(),
+            Person.builder().firstName(UUID.randomUUID().toString()).lastName(UUID.randomUUID().toString()).build(),
+            Person.builder().firstName(UUID.randomUUID().toString()).lastName(UUID.randomUUID().toString()).build()
+    );
 
-		List<String> headers = Arrays.asList("First Name", "Last Name");
-		try {
-			response.addHeader("Content-disposition", "attachment; filename=People.xlsx");
-			response.setContentType("application/vnd.ms-excel");
-			new SimpleExporter().gridExport(headers, persons, "firstName, lastName, ", response.getOutputStream());
-			response.flushBuffer();
-		} catch (IOException e) {
-			System.out.println(e.getMessage());
-		}
-	}
+    List<String> headers = Arrays.asList("First Name", "Last Name");
+    try {
+        response.addHeader("Content-disposition", "attachment; filename=People.xlsx");
+        response.setContentType("application/vnd.ms-excel");
+        new SimpleExporter().gridExport(headers, persons, "firstName, lastName, ", response.getOutputStream());
+        response.flushBuffer();
+    } catch (IOException e) {
+        System.out.println(e.getMessage());
+    }
+}
 ```   
 
